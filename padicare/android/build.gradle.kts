@@ -3,6 +3,13 @@ allprojects {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy {
+            force("org.tensorflow:tensorflow-lite:2.14.0")
+            force("org.tensorflow:tensorflow-lite-gpu:2.14.0")
+            force("org.tensorflow:tensorflow-lite-api:2.14.0")
+        }
+    }
 }
 
 val newBuildDir: Directory =

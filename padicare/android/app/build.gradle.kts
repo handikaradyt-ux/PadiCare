@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.padicare.padicare"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

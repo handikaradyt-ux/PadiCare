@@ -1,0 +1,141 @@
+
+Dokumen Kebutuhan Produk Aplikasi Deteksi Dini Penyakit Daun Padi
+Product Requirements Document  |  Luaran Tahap 1 Mobile Programming
+Status: Rancangan revisi    Versi: 1.1    Platform sasaran: Android dan iOS
+Dokumen ini menetapkan masalah, pengguna, cakupan, dan kebutuhan aplikasi untuk identifikasi awal gejala pada foto daun padi. Aplikasi dirancang agar petani dapat mengambil foto di lahan dan memperoleh dugaan hasil klasifikasi di ponsel tanpa koneksi internet. Hasil aplikasi merupakan bantuan pemeriksaan awal; keputusan penanganan tetap memerlukan pengamatan lapangan atau konsultasi dengan penyuluh.
+1 Judul aplikasi
+Rancang Bangun Aplikasi Multiplatform Deteksi Dini Penyakit Daun Padi Menggunakan Arsitektur MobileNetV3 Berbasis Flutter dan TensorFlow Lite
+Makna deteksi dini dalam produk ini adalah pengenalan gejala yang sudah tampak pada citra daun. Produk tidak menjanjikan diagnosis pasti atau prediksi penyakit sebelum gejala muncul.
+2 Latar belakang dan permasalahan
+Penyakit pada tanaman padi perlu diperiksa ketika gejalanya terlihat agar tindak lanjut dapat dipertimbangkan lebih cepat. Pengenalan berdasarkan tampilan daun saja tidak selalu mudah karena sebagian gejala dapat menyerupai gangguan lain; panduan IRRI menekankan pengamatan ciri dan konteks gejala untuk diagnosis penyakit padi [1].
+Ponsel memungkinkan foto daun diambil langsung di lahan. Model MobileNetV3 dipilih sebagai dasar klasifikasi karena dirancang untuk perangkat seluler [2]. Model yang dikonversi ke TensorFlow Lite dapat dijalankan untuk inferensi di perangkat, sehingga fungsi klasifikasi dapat dirancang tanpa ketergantungan internet [3].
+Masalah yang hendak diselesaikan:
+Pengguna belum memiliki cara yang praktis untuk memperoleh dugaan awal kelas gejala dari foto daun padi saat berada di lahan.
+Hasil klasifikasi perlu dijelaskan dengan bahasa sederhana, termasuk saat foto buruk atau hasil model belum meyakinkan.
+Fungsi utama perlu tetap tersedia di lokasi dengan koneksi internet terbatas.
+3 Tujuan pengembangan
+Mengembangkan aplikasi Flutter yang menerima foto dari kamera atau galeri, menjalankan model MobileNetV3 berformat TensorFlow Lite di perangkat, lalu menampilkan dugaan kelas gejala, tingkat keyakinan model, dan informasi tindak lanjut awal. Implementasi dan pengujian dimulai pada Android; aplikasi baru dinyatakan teruji multiplatform setelah fungsi utama juga diuji pada iOS. Aplikasi memberi arahan mengambil foto ulang atau meminta pemeriksaan penyuluh ketika hasil tidak memadai.
+4 Pengguna dan kebutuhan
+Pengguna
+Kebutuhan utama
+Petani padi
+Mengambil foto, membaca dugaan gejala dengan cepat, dan memahami langkah pemeriksaan berikutnya.
+Penyuluh pertanian
+Menggunakan foto dan hasil aplikasi sebagai bahan awal diskusi serta memverifikasinya di lapangan.
+Mahasiswa atau penguji
+Menguji alur aplikasi dan membandingkan prediksi dengan label pada data uji.
+
+Kebutuhan di atas merupakan asumsi Tahap 1 dan perlu divalidasi melalui wawancara singkat atau observasi calon pengguna.
+5 Kebutuhan fungsional
+FR-01  Aplikasi meminta izin kamera atau galeri ketika pengguna memakai fitur terkait.
+FR-02  Pengguna dapat mengambil foto daun padi dengan kamera atau memilih foto dari galeri.
+FR-03  Aplikasi menampilkan pratinjau foto sebelum analisis.
+FR-04  Aplikasi menyiapkan foto sesuai spesifikasi input model dan menjalankan inferensi TensorFlow Lite di perangkat.
+FR-05  Aplikasi menampilkan kelas hasil klasifikasi dan tingkat keyakinan model.
+FR-06  Aplikasi menampilkan pesan untuk mengambil ulang foto atau meminta pemeriksaan lanjutan jika hasil tidak meyakinkan.
+FR-07  Aplikasi menyediakan penjelasan singkat tiap kelas yang didukung model dan informasi tindak lanjut umum yang sudah diperiksa sumbernya.
+FR-08  Pengguna dapat mengulangi analisis dengan foto lain.
+6 Kebutuhan nonfungsional
+Aspek
+Kebutuhan dan cara pemeriksaan
+Offline
+Pengambilan foto, klasifikasi, dan informasi dasar tetap dapat digunakan tanpa internet; diuji dalam mode pesawat.
+Kinerja
+Target awal hasil muncul paling lama 5 detik sejak pengguna menekan tombol Analisis pada perangkat uji yang ditentukan; diukur saat pengujian.
+Kemudahan pakai
+Tombol, petunjuk foto, dan hasil menggunakan bahasa Indonesia yang mudah dipahami; dinilai melalui uji pengguna.
+Privasi
+Foto diproses di perangkat dan tidak diunggah tanpa tindakan serta persetujuan pengguna; diperiksa melalui alur dan konfigurasi aplikasi.
+Keandalan
+Aplikasi menampilkan pesan jelas saat izin ditolak, foto gagal dibaca, atau model gagal dijalankan.
+Kompatibilitas
+Pengembangan dan pengujian awal dilakukan pada Android. Fungsi utama wajib diuji pada iOS sebelum aplikasi atau laporan mengklaim hasil multiplatform.
+
+7 Fitur utama aplikasi
+Ambil atau pilih foto daun melalui kamera dan galeri.
+Panduan singkat agar daun tampak jelas dan pencahayaan cukup.
+Analisis foto secara offline menggunakan model TensorFlow Lite.
+Halaman hasil berisi dugaan kelas, tingkat keyakinan model, dan penjelasan singkat.
+Peringatan hasil tidak meyakinkan dan pilihan mengambil foto ulang.
+Informasi tindak lanjut awal serta anjuran berkonsultasi dengan penyuluh bila diperlukan.
+8 Deskripsi singkat solusi
+Pengguna membuka aplikasi, mengambil atau memilih foto, memeriksa pratinjau, lalu memulai analisis. Aplikasi menyiapkan gambar sesuai spesifikasi model, menjalankan inferensi secara lokal, dan menampilkan dugaan kelas beserta tingkat keyakinannya. Jika input atau hasil tidak memadai, aplikasi meminta foto ulang atau pemeriksaan lanjutan. Alur ini memberi bantuan identifikasi awal yang dapat digunakan tanpa internet.
+9 Cakupan dan batasan awal
+Versi pertama berfokus pada klasifikasi satu foto daun padi per analisis, bukan deteksi banyak daun dalam satu gambar atau diagnosis seluruh tanaman.
+Daftar kelas ditetapkan setelah dataset diperiksa. Aplikasi hanya boleh menampilkan kelas yang benar-benar dilatih dan diuji pada model.
+Nilai keyakinan model bukan ukuran kepastian diagnosis. Aturan untuk hasil tidak meyakinkan ditentukan melalui evaluasi data uji, bukan angka ambang yang dipilih tanpa pengujian.
+Informasi tindak lanjut bersifat umum dan harus ditinjau berdasarkan sumber pertanian yang sesuai sebelum ditampilkan kepada pengguna.
+10 Kriteria penerimaan awal
+Pengguna dapat memilih sumber foto, melihat pratinjau, dan memulai analisis tanpa aplikasi berhenti mendadak.
+Pada perangkat uji, hasil klasifikasi dapat ditampilkan tanpa koneksi internet.
+Label yang tampil sesuai dengan urutan kelas keluaran model yang digunakan.
+Saat izin ditolak, foto gagal dibaca, atau model tidak tersedia, aplikasi menampilkan penjelasan dan langkah pemulihan.
+Hasil pada data uji dan foto lapangan dicatat untuk mengevaluasi ketepatan klasifikasi serta batas penggunaan aplikasi.
+11 Hal yang perlu dipastikan sebelum implementasi
+Sebelum implementasi, tim perlu memilih dan mengaudit dataset, menetapkan kelas final, memeriksa label bersama rujukan pertanian, serta menentukan spesifikasi input, normalisasi, dan urutan keluaran model. Tim juga perlu menyediakan perangkat uji Android dan, untuk klaim multiplatform, perangkat iOS. Antigravity dapat digunakan untuk membantu coding Flutter dan Python; perubahan kode tetap diperiksa melalui analisis, pengujian, dan uji perangkat.
+12 Alur pengguna
+Beranda → pilih kamera atau galeri → izin akses bila diperlukan → pratinjau foto → tekan Analisis → praproses sesuai model → inferensi lokal → halaman hasil. Dari halaman hasil, pengguna dapat mengambil foto ulang. Saat izin ditolak, foto gagal dibaca, atau model gagal dimuat, aplikasi menampilkan pesan dan langkah pemulihan.
+Pada versi pertama, hasil tidak disimpan otomatis. Riwayat deteksi, onboarding, splash screen, login, backend, dan basis data cloud berada di luar cakupan minimum. Riwayat dapat ditambahkan pada tahap berikutnya dengan pilihan simpan dan hapus yang jelas.
+13 Sumber dan pengelolaan data
+Kandidat sumber utama adalah dataset Paddy Doctor [4]. Untuk versi awal, kelas yang diusulkan ialah daun normal, brown spot, dan bacterial leaf blight, hanya jika jumlah, mutu, serta izin penggunaan fotonya memadai. Dataset Rice Leaf Diseases dari UCI [5] dapat dipakai sebagai pembanding atau percobaan awal, tetapi hanya berisi 120 foto dari tiga kelas penyakit dan tidak mencakup daun normal.
+Foto lapangan tambahan dikumpulkan untuk pengujian: catat sumber, tanggal, lokasi umum, perangkat, dan label yang diverifikasi oleh penyuluh atau ahli pertanian. Pisahkan data latih, validasi, dan uji sebelum augmentasi. Foto dari daun atau sesi pemotretan yang sama tidak boleh masuk ke kelompok berbeda. Augmentasi hanya diterapkan pada data latih.
+Hanya model hasil pelatihan, daftar label, dan informasi penyakit yang diperlukan di aplikasi. Foto dataset tetap berada di penyimpanan kerja pengembangan. Foto pengguna diproses secara lokal dan tidak diunggah atau disimpan sebagai riwayat tanpa tindakan pengguna.
+14 Kebutuhan integrasi model
+ML-01  Ukuran, urutan kanal warna, tipe tensor, dan normalisasi input aplikasi harus mengikuti model TFLite final; nilainya tidak ditetapkan berdasarkan asumsi.
+ML-02  Urutan label dalam berkas labels.txt harus identik dengan indeks keluaran model. Kesesuaian diuji memakai beberapa foto yang sama pada Python dan aplikasi.
+ML-03  Model dievaluasi dengan confusion matrix, precision, dan recall per kelas pada data uji yang belum dipakai saat pelatihan, ditambah foto lapangan.
+ML-04  Tingkat keyakinan model ditampilkan sebagai skor model, bukan kepastian diagnosis. Ambang untuk pesan tidak meyakinkan ditentukan dari hasil evaluasi; foto di luar kelas tetap dicatat sebagai batas kemampuan model.
+15 Skenario pengujian awal
+ID
+Skenario
+Hasil yang diharapkan
+T-01
+Kamera dan galeri
+Foto dapat dipilih dan ditampilkan pada pratinjau.
+T-02
+Izin kamera ditolak
+Aplikasi tetap stabil dan menjelaskan cara melanjutkan melalui galeri atau pengaturan izin.
+T-03
+Mode pesawat
+Model dan informasi dasar tetap berjalan tanpa internet.
+T-04
+Model atau foto gagal dibaca
+Aplikasi menampilkan pesan kesalahan yang dapat dipahami dan menawarkan percobaan ulang.
+T-05
+Kesesuaian label
+Prediksi pada aplikasi sesuai indeks dan label keluaran model yang diuji di Python.
+T-06
+Data uji dan foto lapangan
+Hasil dicatat per kelas; kesalahan dianalisis, bukan hanya menunjukkan contoh yang berhasil.
+T-07
+Foto buram atau bukan daun padi
+Aplikasi tidak berhenti mendadak; hasil yang tidak meyakinkan diberi peringatan. Prediksi keliru dengan skor tinggi dicatat sebagai keterbatasan.
+T-08
+Kinerja dan perangkat
+Waktu analisis diukur pada perangkat uji yang disebutkan; Android dan iOS diuji jika klaim multiplatform dipertahankan.
+Pengujian fungsional di atas dilengkapi evaluasi model dan uji langsung pada perangkat. Kriteria lulus untuk ketepatan klasifikasi diputuskan setelah ukuran serta mutu data uji diketahui.
+16 Risiko pengembangan
+Risiko
+Dampak
+Langkah penanganan
+Dataset kecil atau label keliru
+Prediksi tidak dapat dipercaya
+Audit foto dan label, tambah foto lapangan terverifikasi, laporkan hasil tiap kelas.
+Praproses Python dan Flutter berbeda
+Hasil pada ponsel tidak konsisten
+Dokumentasikan input model dan bandingkan keluaran pada foto yang sama.
+Model tidak berjalan di perangkat
+Fitur inti gagal digunakan
+Uji berkas TFLite pada perangkat sasaran sejak awal integrasi.
+Tidak ada perangkat iOS
+Klaim multiplatform belum teruji
+Fokus pengujian Android dan sesuaikan klaim serta judul akhir bila iOS tidak diuji.
+Waktu pengerjaan terbatas
+Fitur inti belum selesai
+Dahulukan foto, inferensi offline, hasil, dan penanganan kesalahan; tunda fitur tambahan.
+Referensi
+[1] International Rice Research Institute. Diagnosis of Common Diseases of Rice. https://www.knowledgebank.irri.org/images/docs/diagnostic-of-common-diseases-of-rice.pdf
+[2] Howard, A., dkk. Searching for MobileNetV3. 2019. https://arxiv.org/abs/1905.02244
+[3] TensorFlow. How TensorFlow Lite Helps You From Prototype to Product. https://blog.tensorflow.org/2020/04/how-tensorflow-lite-helps-you-from-prototype-to-product.html
+[4] Petchiammal A., Kiruba S. B., Murugan D., dan Pandarasamy A. Paddy Doctor: A Visual Image Dataset for Automated Paddy Disease Classification and Benchmarking. 2023. https://arxiv.org/abs/2205.11108
+[5] UCI Machine Learning Repository. Rice Leaf Diseases. https://archive.ics.uci.edu/dataset/486/rice
