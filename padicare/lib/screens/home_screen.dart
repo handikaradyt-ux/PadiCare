@@ -28,9 +28,44 @@ class _HomeScreenState extends State<HomeScreen> {
   final ImagePickerService _pickerService = ImagePickerService();
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    // Periksa apakah ada foto kamera yang dipulihkan jika proses aplikasi
+    // sempat ditutup oleh sistem Android saat kamera terbuka.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkLostData();
+    });
+  }
+
+  Future<void> _checkLostData() async {
+    final lostResult = await _pickerService.retrieveLostData();
+    if (!mounted || lostResult == null) return;
+
+    if (lostResult.status == PickResultStatus.success &&
+        lostResult.filePath != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PreviewScreen(
+            initialImagePath: lostResult.filePath!,
+            classifierService: widget.classifierService,
+          ),
+        ),
+      );
+    } else if (lostResult.status == PickResultStatus.fileError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+              Text(lostResult.errorMessage ?? 'Gagal memulihkan foto kamera.'),
+          backgroundColor: AgroColors.error,
+        ),
+      );
+    }
+  }
+
   Future<void> _handleStartDetection() async {
     final choice = await SourcePickerSheet.show(context);
-    if (choice == null) return;
+    if (choice == null || !mounted) return;
 
     setState(() => _isLoading = true);
 
@@ -38,9 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ? await _pickerService.pickFromCamera()
         : await _pickerService.pickFromGallery();
 
-    setState(() => _isLoading = false);
-
     if (!mounted) return;
+    setState(() => _isLoading = false);
 
     switch (result.status) {
       case PickResultStatus.success:

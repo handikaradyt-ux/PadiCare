@@ -11,12 +11,18 @@
 **/android/local.properties
 **/android/app/build/
 
-# Python
+# Python & ML Datasets
 **/__pycache__/
 *.py[cod]
 *$py.class
 .venv/
 env/
+dataset_sources/
+ml/data/
+ml/padicare/
+
+# Test screenshots
+padicare/test/*.png
 
 # OS
 .DS_Store

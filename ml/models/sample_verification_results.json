@@ -1,0 +1,35 @@
+[
+  {
+    "true_class": "bacterial_leaf_blight",
+    "image_file": "C:\\SEMESTER 5\\MOBILE PROGRAMMING\\T\\ml\\data\\test\\bacterial_leaf_blight\\bacterial_leaf_blight_0000.jpg",
+    "predicted_class": "bacterial_leaf_blight",
+    "confidence": 0.9397669434547424,
+    "all_probabilities": {
+      "bacterial_leaf_blight": 0.9397669434547424,
+      "brown_spot": 0.05862569063901901,
+      "normal": 0.0016074072336778045
+    }
+  },
+  {
+    "true_class": "brown_spot",
+    "image_file": "C:\\SEMESTER 5\\MOBILE PROGRAMMING\\T\\ml\\data\\test\\brown_spot\\brown_spot_0000.jpg",
+    "predicted_class": "brown_spot",
+    "confidence": 0.9836788773536682,
+    "all_probabilities": {
+      "bacterial_leaf_blight": 0.016310876235365868,
+      "brown_spot": 0.9836788773536682,
+      "normal": 1.021557272906648e-05
+    }
+  },
+  {
+    "true_class": "normal",
+    "image_file": "C:\\SEMESTER 5\\MOBILE PROGRAMMING\\T\\ml\\data\\test\\normal\\normal_0000.jpg",
+    "predicted_class": "normal",
+    "confidence": 0.9852603673934937,
+    "all_probabilities": {
+      "bacterial_leaf_blight": 0.013535196892917156,
+      "brown_spot": 0.001204460859298706,
+      "normal": 0.9852603673934937
+    }
+  }
+]

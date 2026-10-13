@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>PadiCare memerlukan izin kamera untuk memotret daun padi secara langsung guna pemeriksaan awal gejala penyakit.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>PadiCare memerlukan izin galeri untuk memilih foto daun padi yang tersimpan di perangkat.</string>
 </dict>
 </plist>

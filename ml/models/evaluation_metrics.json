@@ -1,0 +1,107 @@
+{
+  "architecture": "MobileNetV3Small (Transfer Learning + Fine-Tuning)",
+  "input_shape": [
+    1,
+    224,
+    224,
+    3
+  ],
+  "normalization": "raw pixel values [0.0, 255.0] (Internal MobileNetV3 handles 1/127.5 - 1.0)",
+  "classes": [
+    "bacterial_leaf_blight",
+    "brown_spot",
+    "normal"
+  ],
+  "test_metrics": {
+    "test_samples": 61,
+    "accuracy": 0.8852459016393442,
+    "confusion_matrix": [
+      [
+        14,
+        3,
+        0
+      ],
+      [
+        2,
+        26,
+        0
+      ],
+      [
+        2,
+        0,
+        14
+      ]
+    ],
+    "classification_report": {
+      "bacterial_leaf_blight": {
+        "precision": 0.7777777777777778,
+        "recall": 0.8235294117647058,
+        "f1-score": 0.8,
+        "support": 17.0
+      },
+      "brown_spot": {
+        "precision": 0.896551724137931,
+        "recall": 0.9285714285714286,
+        "f1-score": 0.9122807017543859,
+        "support": 28.0
+      },
+      "normal": {
+        "precision": 1.0,
+        "recall": 0.875,
+        "f1-score": 0.9333333333333333,
+        "support": 16.0
+      },
+      "accuracy": 0.8852459016393442,
+      "macro avg": {
+        "precision": 0.8914431673052362,
+        "recall": 0.8757002801120448,
+        "f1-score": 0.8818713450292398,
+        "support": 61.0
+      },
+      "weighted avg": {
+        "precision": 0.8905847622636769,
+        "recall": 0.8852459016393442,
+        "f1-score": 0.8865113603681334,
+        "support": 61.0
+      }
+    },
+    "mean_correct_confidence": 0.9318461633390851
+  },
+  "out_of_scope_evaluation": {
+    "leaf_blast": {
+      "count": 133,
+      "mean_confidence": 0.9522219044821603,
+      "min_confidence": 0.45157647132873535,
+      "max_confidence": 0.9999997615814209,
+      "predicted_distribution": {
+        "bacterial_leaf_blight": 35,
+        "brown_spot": 96,
+        "normal": 2
+      }
+    },
+    "leaf_scald": {
+      "count": 107,
+      "mean_confidence": 0.9038660609833548,
+      "min_confidence": 0.5032158493995667,
+      "max_confidence": 0.9999992847442627,
+      "predicted_distribution": {
+        "bacterial_leaf_blight": 73,
+        "brown_spot": 34,
+        "normal": 0
+      }
+    },
+    "narrow_brown_spot": {
+      "count": 113,
+      "mean_confidence": 0.8612783176709066,
+      "min_confidence": 0.45065152645111084,
+      "max_confidence": 0.9999842643737793,
+      "predicted_distribution": {
+        "bacterial_leaf_blight": 47,
+        "brown_spot": 66,
+        "normal": 0
+      }
+    }
+  },
+  "uncertainty_threshold": 0.6,
+  "uncertainty_rationale": "Empirical calibration: Predictions with confidence < 0.60 are flagged as 'Hasil Belum Meyakinkan' to avoid overconfident misdiagnoses on out-of-scope or ambiguous symptoms."
+}

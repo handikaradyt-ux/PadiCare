@@ -38,11 +38,13 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
   Future<void> _changePhoto() async {
     final choice = await SourcePickerSheet.show(context);
-    if (choice == null) return;
+    if (choice == null || !mounted) return;
 
     final PickResult result = choice == PhotoSourceChoice.camera
         ? await _pickerService.pickFromCamera()
         : await _pickerService.pickFromGallery();
+
+    if (!mounted) return;
 
     if (result.status == PickResultStatus.success && result.filePath != null) {
       setState(() {
@@ -73,7 +75,6 @@ class _PreviewScreenState extends State<PreviewScreen> {
     });
 
     try {
-      // Tunggu simulasi singkat / proses inferensi TFLite
       final result = await widget.classifierService.classify(_currentImagePath);
 
       if (!mounted) return;
@@ -112,14 +113,20 @@ class _PreviewScreenState extends State<PreviewScreen> {
   @override
   Widget build(BuildContext context) {
     if (_errorResult != null) {
+      final errType = _errorResult!.errorType;
       return ErrorView(
-        errorType: _errorResult!.errorType,
+        errorType: errType,
         customMessage: _errorResult!.errorMessage,
         onRetry: () {
           setState(() {
             _errorResult = null;
           });
-          _startAnalysis();
+          if (errType == DetectionErrorType.imageReadFailed ||
+              errType == DetectionErrorType.permissionDenied) {
+            _changePhoto();
+          } else {
+            _startAnalysis();
+          }
         },
         onBack: () => Navigator.of(context).pop(),
       );

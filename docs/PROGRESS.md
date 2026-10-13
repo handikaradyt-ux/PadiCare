@@ -1,63 +1,38 @@
 # Catatan Kemajuan Proyek PadiCare
 
-Dokumen ini mencatat kemajuan per tahap, status verifikasi nyata, dan perintah yang digunakan.
+Dokumen ini mencatat kemajuan per tahap, status verifikasi nyata, dan hasil pengujian terkini per **13 Oktober 2026**.
 
 ## Ringkasan Status Tahap
 
-| Tahap | Deskripsi | Status | Catatan Verifikasi |
+| Tahap | Deskripsi | Status | Catatan Verifikasi & Kondisi Nyata |
 |---|---|---|---|
-| Tahap A | Audit Lingkungan & Proyek | **Selesai dan Teruji** | Flutter 3.47.2, Dart 3.13.2, Android SDK 36.0.0, cmdline-tools terpasang, lisensi disetujui, `flutter doctor` bersih, AVD `padicare_avd` dibuat & aktif, proyek `padicare` dibuat, `flutter analyze` 0 issue, build debug APK sukses (`app-debug.apk`). |
-| Tahap B | Fondasi Aplikasi & UI 12 Layar | **Selesai dan Teruji** | Tema AgroSawah M3 (`#133E26`), 12 layar/status, komponen modular, alur kamera/galeri, 4 varian error, `flutter test` lolos 6/6, `flutter analyze` 0 issue, APK debug terpasang & diverifikasi di emulator `emulator-5554`. |
-| Tahap C | Dataset & Model MobileNetV3 | Belum dimulai | Siap dikerjakan |
-| Tahap D | Konversi & Integrasi TFLite | Belum dimulai | Menunggu Tahap C |
-| Tahap E | Uji Aplikasi & Perbaikan | Belum dimulai | Menunggu Tahap D |
-| Tahap F | Rilis APK & Bahan Laporan | Belum dimulai | Menunggu Tahap E |
+| **Tahap A** | Audit Lingkungan & Proyek | **Selesai dan Teruji** | Flutter 3.47.2, Dart 3.13.2, Android SDK API 36, `cmdline-tools/latest`, lisensi disetujui, proyek `padicare` aktif, kompilasi debug berjalan sukses. |
+| **Tahap B** | Fondasi Aplikasi & UI 12 Layar | **Selesai dan Teruji (dengan catatan kamera)** | Tema AgroSawah M3 (`#133E26`), 12 layar/status modular, komponen teruji. Alur galeri berfungsi penuh. Alur kamera langsung telah diperbarui kodenya (izin, exception handling, `retrieveLostData`), tetapi pengujian pada HP fisik berstatus menunggu sambungan perangkat. |
+| **Tahap C** | Dataset & Model MobileNetV3 | **Selesai dan Teruji** | Dataset Masud et al. (PLOS ONE 2026, CC-BY-4.0). 748 citra unik setelah audit & hapus 25 duplikat hash. Split 70/15/15 di `ml/data/`: Train 275, Val 59, Test murni 61. Akurasi data uji: **88.52%** (54/61 benar, Macro F1: 0.8819). Evaluasi out-of-scope 353 citra; ambang 0.60 membantu menyaring skor rendah, namun model closed-set masih memberi confidence tinggi pada lesi penyakit lain. |
+| **Tahap D** | Konversi & Integrasi TFLite | **Selesai dan Teruji** | Model dikonversi ke TFLite dynamic range: `padicare/assets/models/paddy_mobilenetv3.tflite` (1.12 MB / 1,172,360 bytes). `labels.txt` (3 kelas). Spesifikasi tensor di `docs/MODEL_SPECIFICATION.md`. Komparasi Python vs TFLite identik (selisih skor < 0.005). Integrasi `ClassifierService` selesai dengan praproses RGB 224x224 float32. |
+| **Tahap E** | Uji Aplikasi & Perbaikan | **Sebagian (Kamera Fisik Menunggu Pengujian)** | • `flutter analyze --no-pub`: **0 issues found**.<br>• `flutter test --no-pub`: **15/15 unit & widget tests lulus** (13/10/2026).<br>• Integration test emulator Android 16 (Pixel 6) lulus 5/5 dengan injeksi citra daun (BLB, Brown Spot, Normal, Out-of-Scope, Missing file).<br>• Uji offline mode pesawat terbukti berjalan di Android.<br>• **Pending**: Pengujian kamera langsung pada HP fisik belum dilakukan. |
+| **Tahap F** | Rilis APK & Bahan Laporan | **Selesai dan Teruji** | • Fresh Release APK: `padicare/build/app/outputs/flutter-apk/app-release.apk` (**68.32 MB**, dibuat 13/10/2026 12:14 WIB).<br>• Terverifikasi memuat model TFLite, label, dan sampel daun.<br>• Naskah video siap di `docs/NASKAH_VIDEO_PADICARE_10_MENIT.md` dan `docs/NASKAH_VIDEO_PADICARE_13_MENIT_3_ORANG.md`. |
 
 ---
 
-## Log Aktivitas Tahap
+## Log Aktivitas Terkini (Pembaruan Pasca-Audit 13 Oktober 2026)
 
-### Tahap A — Audit Lingkungan dan Proyek
-- **Tanggal/Waktu**: 2026-10-07
-- **Perintah yang Dijalankan**:
-  1. `flutter --version` -> Flutter 3.47.2, Dart 3.13.2, DevTools 2.60.0.
-  2. `flutter doctor -v` -> Mengidentifikasi ketiadaan `cmdline-tools` dan lisensi SDK belum diterima.
-  3. Pemasangan `cmdline-tools`: Mengunduh dan mengekstrak `commandlinetools-win-11076708_latest.zip` ke `C:\Users\ASUS\AppData\Local\Android\sdk\cmdline-tools\latest`.
-  4. `flutter doctor --android-licenses` -> Semua lisensi Android SDK disetujui.
-  5. `flutter doctor -v` -> Status bersih tanpa masalah (`• No issues found!`).
-  6. Pembuatan AVD: `avdmanager create avd -n padicare_avd -k "system-images;android-36;google_apis_playstore;x86_64" --device "pixel_6" --force`.
-  7. Peluncuran emulator: `emulator -avd padicare_avd -no-window -no-audio -no-boot-anim` -> `emulator-5554` aktif.
-  8. Pembuatan proyek: `flutter create --org com.padicare --project-name padicare padicare`.
-  9. Analisis kode: `flutter analyze` di `padicare` -> `No issues found!`.
-  10. Verifikasi kompilasi Android: `flutter build apk --debug` di `padicare` -> Sukses menghasilkan `build\app\outputs\flutter-apk\app-debug.apk` (189.5s).
-- **Hasil Uji & Bukti Ringkas**:
-  - `flutter doctor -v`: 0 issue.
-  - Kompilasi Gradle Android API 36 dan Java SE 20 berjalan tanpa error.
-  - APK debug terbentuk di `padicare/build/app/outputs/flutter-apk/app-debug.apk`.
-- **Kekurangan yang Tersisa**:
-  - Implementasi UI 12 status layar dari rancangan Stitch dan alur kamera/galeri (Tahap B).
-  - Penyiapan dataset daun padi dan pelatihan model MobileNetV3 (Tahap C).
-- **Tahap Berikutnya**:
-  - **Tahap B**: Implementasi tema Material 3 AgroSawah, komponen UI, navigasi, alur kamera/galeri, pratinjau foto, dan 4 penanganan error.
-
-### Tahap B — Fondasi Aplikasi dan UI (12 Layar/Status)
-- **Tanggal/Waktu**: 2026-10-07
-- **Perintah yang Dijalankan**:
-  1. Penambahan dependensi di `pubspec.yaml`: `image_picker: ^1.1.2`, `permission_handler: ^11.3.1`, `tflite_flutter: ^0.10.4`, `image: ^4.3.0`.
-  2. Penyesuaian `android/build.gradle.kts` & `android/app/build.gradle.kts`: `compileSdk = 37`, resolusi dependensi `tensorflow-lite:2.14.0` untuk mencegah duplikasi namespace Android Gradle Plugin.
-  3. Konfigurasi `kotlin.jvm.target.validation.mode=warning` di `android/gradle.properties` untuk kompatibilitas Java 20.
-  4. Implementasi sistem desain AgroSawah Material 3 di `lib/theme/app_theme.dart` (`#133E26`, `#2E7D32`, `#F7F9F5`).
-  5. Implementasi model domain: `lib/models/detection_result.dart` (state eksplisit tanpa hasil dummy), `lib/models/disease_info.dart` (informasi aman agronomi tanpa dosis pestisida).
-  6. Implementasi widget modular: `lib/widgets/offline_badge.dart`, `lib/widgets/status_badge.dart`, `lib/widgets/source_picker_sheet.dart` (modal Layar 2), `lib/widgets/error_view.dart` (4 varian error Layar 10).
-  7. Implementasi layar: `lib/screens/home_screen.dart` (Layar 1 beranda baru), `lib/screens/permission_help_screen.dart` (Layar 3), `lib/screens/photo_guide_screen.dart` (Layar 4), `lib/screens/preview_screen.dart` (Layar 5 & 6), `lib/screens/result_screen.dart` (Layar 7, 8, 9), `lib/screens/disease_info_screen.dart` (Layar 11), `lib/screens/about_screen.dart` (Layar 12).
-  8. `flutter test` -> 6/6 test lolos (`widget_test.dart`).
-  9. `flutter analyze` -> 0 issue found.
-  10. `flutter install` & verifikasi visual tangkapan layar di emulator `emulator-5554`.
-- **Hasil Uji & Bukti Ringkas**:
-  - Seluruh alur UI 12 layar/status terverifikasi.
-  - Tangkapan layar tersimpan: `home_screen.png`, `modal_sheet.png`, `guide_screen.png`, `disease_screen.png`, `about_screen.png`.
-- **Kekurangan yang Tersisa**:
-  - Model inferensi nyata MobileNetV3 TFLite belum terpasang (masih menggunakan fallback aman).
-- **Tahap Berikutnya**:
-  - **Tahap C**: Audit dataset padi, penetapan kelas final, pelatihan transfer learning MobileNetV3, dan evaluasi matriks.
-
+### Penyempurnaan Alur Kamera dan Ketahanan Aplikasi
+1. **Pemulihan Data Kamera Hilang (`retrieveLostData`)**:
+   - Menambahkan metode `retrieveLostData()` pada `ImagePickerService` untuk menangani skenario di mana sistem operasi Android menutup proses utama aplikasi akibat keterbatasan memori saat aktivitas kamera sistem berada di latar depan.
+   - Mengintegrasikan pemanggilan `_checkLostData()` pada callback pasca-frame awal di `HomeScreenState.initState()`.
+2. **Pemeriksaan Status Izin Kamera**:
+   - Memperbarui `pickFromCamera()` agar memeriksa `Permission.camera.status` sebelum meminta ulang izin, menghindari glitch pada perangkat Android modern.
+   - Menambahkan parameter `preferredCameraDevice: CameraDevice.rear` untuk memprioritaskan kamera belakang di lapangan.
+   - Menambahkan penanganan spesifik `PlatformException` (misal `camera_access_denied`).
+3. **Pemberian Penjaga `mounted`**:
+   - Memperbaiki pemanggilan `setState` dan navigasi di `home_screen.dart` dan `preview_screen.dart` dengan memastikan `mounted == true` setelah operasi asinkron `SourcePickerSheet.show()` dan pemilihan gambar.
+4. **Perbaikan Aksi Pemulihan (Smart Retry)**:
+   - Pada `PreviewScreen`, tombol coba lagi pada `ErrorView` kini secara otomatis mengarahkan ke `_changePhoto()` jika jenis kendala adalah `imageReadFailed` atau `permissionDenied`, dan ke `_startAnalysis()` jika kendala adalah `inferenceFailed` atau `modelLoadFailed`.
+5. **Konfigurasi Manifest & Info.plist**:
+   - Menambahkan `<uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />` di `AndroidManifest.xml`.
+   - Menambahkan `NSCameraUsageDescription` dan `NSPhotoLibraryUsageDescription` di `ios/Runner/Info.plist`.
+6. **Verifikasi Kualitas Kode & Kompilasi**:
+   - `flutter analyze --no-pub`: 0 issues found.
+   - `flutter test --no-pub`: 15/15 tests passed.
+   - `flutter build apk --release`: Sukses menghasilkan build APK rilis berukuran 68.32 MB.

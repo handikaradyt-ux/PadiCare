@@ -1,0 +1,34 @@
+{
+  "dataset_name": "Project-AgML Rice Leaf Disease Classification (Masud et al., PLOS ONE 2026)",
+  "source_license": "CC-BY-4.0",
+  "total_raw_records": 773,
+  "duplicate_count": 25,
+  "unique_records": 748,
+  "target_classes": {
+    "brown_spot": 182,
+    "normal": 102,
+    "bacterial_leaf_blight": 111
+  },
+  "out_of_scope_classes": {
+    "narrow_brown_spot": 113,
+    "leaf_blast": 133,
+    "leaf_scald": 107
+  },
+  "splits": {
+    "train": {
+      "brown_spot": 127,
+      "normal": 71,
+      "bacterial_leaf_blight": 77
+    },
+    "val": {
+      "brown_spot": 27,
+      "normal": 15,
+      "bacterial_leaf_blight": 17
+    },
+    "test": {
+      "brown_spot": 28,
+      "normal": 16,
+      "bacterial_leaf_blight": 17
+    }
+  }
+}
