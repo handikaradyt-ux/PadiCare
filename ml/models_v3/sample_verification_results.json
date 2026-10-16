@@ -1,0 +1,137 @@
+{
+  "in_scope_tests": [
+    {
+      "image_file": "bacterial_leaf_blight_0000.jpg",
+      "predicted_label": "bacterial_leaf_blight",
+      "confidence": 0.4204445481300354,
+      "is_uncertain_at_0_65": true,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.4204,
+        "brown_spot": 0.4017,
+        "leaf_blast": 0.0913,
+        "normal": 0.0025,
+        "tungro": 0.0839
+      },
+      "true_class": "bacterial_leaf_blight",
+      "is_correct": true
+    },
+    {
+      "image_file": "brown_spot_0000.jpg",
+      "predicted_label": "tungro",
+      "confidence": 0.4816794693470001,
+      "is_uncertain_at_0_65": true,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.1801,
+        "brown_spot": 0.0952,
+        "leaf_blast": 0.2296,
+        "normal": 0.0134,
+        "tungro": 0.4817
+      },
+      "true_class": "brown_spot",
+      "is_correct": false
+    },
+    {
+      "image_file": "leaf_blast_0000.jpg",
+      "predicted_label": "normal",
+      "confidence": 0.7250673174858093,
+      "is_uncertain_at_0_65": false,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.0099,
+        "brown_spot": 0.0093,
+        "leaf_blast": 0.0971,
+        "normal": 0.7251,
+        "tungro": 0.1586
+      },
+      "true_class": "leaf_blast",
+      "is_correct": false
+    },
+    {
+      "image_file": "normal_0000.jpg",
+      "predicted_label": "normal",
+      "confidence": 0.9520959258079529,
+      "is_uncertain_at_0_65": false,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.0029,
+        "brown_spot": 0.0008,
+        "leaf_blast": 0.012,
+        "normal": 0.9521,
+        "tungro": 0.0321
+      },
+      "true_class": "normal",
+      "is_correct": true
+    },
+    {
+      "image_file": "tungro_0000.jpg",
+      "predicted_label": "tungro",
+      "confidence": 0.9874326586723328,
+      "is_uncertain_at_0_65": false,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.0003,
+        "brown_spot": 0.0009,
+        "leaf_blast": 0.0006,
+        "normal": 0.0109,
+        "tungro": 0.9874
+      },
+      "true_class": "tungro",
+      "is_correct": true
+    }
+  ],
+  "out_of_scope_tests": [
+    {
+      "image_file": "dead_heart_0000.jpg",
+      "predicted_label": "bacterial_leaf_blight",
+      "confidence": 0.3683641254901886,
+      "is_uncertain_at_0_65": true,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.3684,
+        "brown_spot": 0.3193,
+        "leaf_blast": 0.2273,
+        "normal": 0.0303,
+        "tungro": 0.0546
+      },
+      "oos_source": "dead_heart"
+    },
+    {
+      "image_file": "hispa_0000.jpg",
+      "predicted_label": "normal",
+      "confidence": 0.395896852016449,
+      "is_uncertain_at_0_65": true,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.1801,
+        "brown_spot": 0.0433,
+        "leaf_blast": 0.2736,
+        "normal": 0.3959,
+        "tungro": 0.107
+      },
+      "oos_source": "hispa"
+    },
+    {
+      "image_file": "leaf_scald_0000.jpg",
+      "predicted_label": "brown_spot",
+      "confidence": 0.6758140325546265,
+      "is_uncertain_at_0_65": false,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.2173,
+        "brown_spot": 0.6758,
+        "leaf_blast": 0.0008,
+        "normal": 0.0003,
+        "tungro": 0.1059
+      },
+      "oos_source": "leaf_scald"
+    },
+    {
+      "image_file": "narrow_brown_spot_0000.jpg",
+      "predicted_label": "brown_spot",
+      "confidence": 0.6895867586135864,
+      "is_uncertain_at_0_65": false,
+      "probabilities": {
+        "bacterial_leaf_blight": 0.1018,
+        "brown_spot": 0.6896,
+        "leaf_blast": 0.0208,
+        "normal": 0.0008,
+        "tungro": 0.187
+      },
+      "oos_source": "narrow_brown_spot"
+    }
+  ]
+}

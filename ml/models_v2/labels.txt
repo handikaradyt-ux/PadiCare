@@ -1,0 +1,6 @@
+bacterial_leaf_blight
+brown_spot
+leaf_blast
+leaf_scald
+narrow_brown_spot
+normal

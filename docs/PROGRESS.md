@@ -1,38 +1,52 @@
 # Catatan Kemajuan Proyek PadiCare
 
-Dokumen ini mencatat kemajuan per tahap, status verifikasi nyata, dan hasil pengujian terkini per **13 Oktober 2026**.
+Dokumen ini mencatat kemajuan per tahap, status verifikasi nyata, dan hasil pengujian terkini per **16 Oktober 2026**.
 
 ## Ringkasan Status Tahap
 
 | Tahap | Deskripsi | Status | Catatan Verifikasi & Kondisi Nyata |
 |---|---|---|---|
-| **Tahap A** | Audit Lingkungan & Proyek | **Selesai dan Teruji** | Flutter 3.47.2, Dart 3.13.2, Android SDK API 36, `cmdline-tools/latest`, lisensi disetujui, proyek `padicare` aktif, kompilasi debug berjalan sukses. |
-| **Tahap B** | Fondasi Aplikasi & UI 12 Layar | **Selesai dan Teruji (dengan catatan kamera)** | Tema AgroSawah M3 (`#133E26`), 12 layar/status modular, komponen teruji. Alur galeri berfungsi penuh. Alur kamera langsung telah diperbarui kodenya (izin, exception handling, `retrieveLostData`), tetapi pengujian pada HP fisik berstatus menunggu sambungan perangkat. |
-| **Tahap C** | Dataset & Model MobileNetV3 | **Selesai dan Teruji** | Dataset Masud et al. (PLOS ONE 2026, CC-BY-4.0). 748 citra unik setelah audit & hapus 25 duplikat hash. Split 70/15/15 di `ml/data/`: Train 275, Val 59, Test murni 61. Akurasi data uji: **88.52%** (54/61 benar, Macro F1: 0.8819). Evaluasi out-of-scope 353 citra; ambang 0.60 membantu menyaring skor rendah, namun model closed-set masih memberi confidence tinggi pada lesi penyakit lain. |
-| **Tahap D** | Konversi & Integrasi TFLite | **Selesai dan Teruji** | Model dikonversi ke TFLite dynamic range: `padicare/assets/models/paddy_mobilenetv3.tflite` (1.12 MB / 1,172,360 bytes). `labels.txt` (3 kelas). Spesifikasi tensor di `docs/MODEL_SPECIFICATION.md`. Komparasi Python vs TFLite identik (selisih skor < 0.005). Integrasi `ClassifierService` selesai dengan praproses RGB 224x224 float32. |
-| **Tahap E** | Uji Aplikasi & Perbaikan | **Sebagian (Kamera Fisik Menunggu Pengujian)** | • `flutter analyze --no-pub`: **0 issues found**.<br>• `flutter test --no-pub`: **15/15 unit & widget tests lulus** (13/10/2026).<br>• Integration test emulator Android 16 (Pixel 6) lulus 5/5 dengan injeksi citra daun (BLB, Brown Spot, Normal, Out-of-Scope, Missing file).<br>• Uji offline mode pesawat terbukti berjalan di Android.<br>• **Pending**: Pengujian kamera langsung pada HP fisik belum dilakukan. |
-| **Tahap F** | Rilis APK & Bahan Laporan | **Selesai dan Teruji** | • Fresh Release APK: `padicare/build/app/outputs/flutter-apk/app-release.apk` (**68.32 MB**, dibuat 13/10/2026 12:14 WIB).<br>• Terverifikasi memuat model TFLite, label, dan sampel daun.<br>• Naskah video siap di `docs/NASKAH_VIDEO_PADICARE_10_MENIT.md` dan `docs/NASKAH_VIDEO_PADICARE_13_MENIT_3_ORANG.md`. |
+| **Tahap A** | Audit Lingkungan & Proyek | **Selesai dan Teruji** | Flutter 3.47.2, Dart 3.13.2, Android SDK API 36, `cmdline-tools/latest`, lisensi disetujui, proyek `padicare` aktif. |
+| **Tahap B** | Fondasi Aplikasi & UI 12 Layar | **Selesai dan Teruji (dengan catatan kamera)** | Tema AgroSawah M3 (`#133E26`), 12 layar/status modular, komponen teruji. Alur galeri berfungsi penuh. Alur kamera langsung telah diperbarui kodenya (izin, exception handling, `retrieveLostData`), tetapi pengujian pada HP fisik berstatus menunggu pengujian manual oleh pengguna. |
+| **Tahap C** | Dataset & Model MobileNetV3 5 Kelas | **Selesai dan Teruji** | Dataset multi-sumber berlisensi CC BY 4.0 (Sethy et al. 2020/2024, Paddy Doctor IEEE 2022, Masud et al. 2026). 5 kelas daun: BLB, Bercak Cokelat, Blas Daun, Daun Sehat, Tungro. Total 3.000 citra (Train 2.100, Val 450, Test 450) + 400 OOS benchmark. Akurasi data uji: **77.78%** (Macro F1: **0.7787**). Pada ambang keyakinan 0.65, akurasi in-scope yang dipertahankan mencapai **91.19%**. |
+| **Tahap D** | Konversi & Integrasi TFLite | **Selesai dan Teruji** | Model dikonversi ke TFLite float32: `padicare/assets/models/paddy_mobilenetv3.tflite` (**3.87 MB** / 4.059.772 bytes). `labels.txt` (5 kelas). Komparasi Keras vs TFLite identik (selisih probabilitas maksimum 3.46e-06). Integrasi `ClassifierService` selesai dengan ambang keyakinan terkalibrasi 0.65 dan praproses RGB 224x224 float32. |
+| **Tahap E** | Uji Aplikasi & Perbaikan | **Sebagian (Kamera Fisik Menunggu Pengujian Manual)** | • `flutter analyze --no-pub`: **0 issues found**.<br>• `flutter test --no-pub`: **15/15 unit & widget tests lulus** (16/10/2026).<br>• Uji offline mode pesawat terbukti berjalan di Android.<br>• **Pending**: Pengujian kamera langsung pada HP fisik berstatus **menunggu pengujian manual oleh pengguna**. |
+| **Tahap F** | Rilis APK & Bahan Laporan | **Selesai dan Teruji** | • Fresh Release APK: `padicare/build/app/outputs/flutter-apk/app-release.apk` (**71.1 MB**, dibuat 16/10/2026).<br>• Terverifikasi memuat model TFLite 5 kelas, label 5 kelas, dan aset penyakit lengkap.<br>• Panduan pengujian manual dan dokumentasi siap di `docs/`. |
 
 ---
 
-## Log Aktivitas Terkini (Pembaruan Pasca-Audit 13 Oktober 2026)
+## Log Aktivitas Terkini (Ekspansi 5 Kelas & Rilis APK 16 Oktober 2026)
 
-### Penyempurnaan Alur Kamera dan Ketahanan Aplikasi
-1. **Pemulihan Data Kamera Hilang (`retrieveLostData`)**:
-   - Menambahkan metode `retrieveLostData()` pada `ImagePickerService` untuk menangani skenario di mana sistem operasi Android menutup proses utama aplikasi akibat keterbatasan memori saat aktivitas kamera sistem berada di latar depan.
-   - Mengintegrasikan pemanggilan `_checkLostData()` pada callback pasca-frame awal di `HomeScreenState.initState()`.
-2. **Pemeriksaan Status Izin Kamera**:
-   - Memperbarui `pickFromCamera()` agar memeriksa `Permission.camera.status` sebelum meminta ulang izin, menghindari glitch pada perangkat Android modern.
-   - Menambahkan parameter `preferredCameraDevice: CameraDevice.rear` untuk memprioritaskan kamera belakang di lapangan.
-   - Menambahkan penanganan spesifik `PlatformException` (misal `camera_access_denied`).
-3. **Pemberian Penjaga `mounted`**:
-   - Memperbaiki pemanggilan `setState` dan navigasi di `home_screen.dart` dan `preview_screen.dart` dengan memastikan `mounted == true` setelah operasi asinkron `SourcePickerSheet.show()` dan pemilihan gambar.
-4. **Perbaikan Aksi Pemulihan (Smart Retry)**:
-   - Pada `PreviewScreen`, tombol coba lagi pada `ErrorView` kini secara otomatis mengarahkan ke `_changePhoto()` jika jenis kendala adalah `imageReadFailed` atau `permissionDenied`, dan ke `_startAnalysis()` jika kendala adalah `inferenceFailed` atau `modelLoadFailed`.
-5. **Konfigurasi Manifest & Info.plist**:
-   - Menambahkan `<uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />` di `AndroidManifest.xml`.
-   - Menambahkan `NSCameraUsageDescription` dan `NSPhotoLibraryUsageDescription` di `ios/Runner/Info.plist`.
-6. **Verifikasi Kualitas Kode & Kompilasi**:
-   - `flutter analyze --no-pub`: 0 issues found.
-   - `flutter test --no-pub`: 15/15 tests passed.
-   - `flutter build apk --release`: Sukses menghasilkan build APK rilis berukuran 68.32 MB.
+### 1. Audit Sumber Dataset & Eliminasi Pilot 6 Kelas
+- Pilot 6 kelas sebelumnya (`ml/models_v2/`) hanya mencapai akurasi 53.04% karena volume data minim (521 latih) dan kebingungan lesi antara `leaf_scald` (recall 29.4%) dan `narrow_brown_spot`. Sesuai PRD dan instruksi, model pilot ini **TIDAK DIRILIS**.
+- Mengunduh dan mengaudit dataset primer berlisensi CC BY 4.0:
+  - **AgML India (Sethy et al., Mendeley Data 2024)**: 5.932 citra real daun padi (Bacterial blight, Blast, Brown spot, Tungro).
+  - **Paddy Doctor (IEEE Dataport 2022)**: 10.407 citra. Memilah kelas daun vs kelas hama/malai.
+  - **AgML Bangladesh (Masud et al. 2026)**: 748 citra.
+- Memilih 5 kelas daun bergejala jelas dan bervolume tinggi:
+  1. `bacterial_leaf_blight` (Hawar Daun Bakteri / Kresek)
+  2. `brown_spot` (Bercak Cokelat)
+  3. `leaf_blast` (Blas Daun)
+  4. `normal` (Daun Tampak Sehat)
+  5. `tungro` (Penyakit Tungro)
+- Memisahkan 400 citra luar cakupan (`hispa`, `dead_heart`, `leaf_scald`, `narrow_brown_spot`) untuk benchmark kalibrasi ambang penolakan.
+
+### 2. Pelatihan & Evaluasi Model 5 Kelas
+- Pelatihan transfer learning 2 fase:
+  - Fase 1: Base MobileNetV3 dibekukan, latih dense head dengan Adam (lr=1e-3).
+  - Fase 2: Unfreeze 40 layer teratas base, fine-tuning dengan Adam (lr=1e-4).
+- Evaluasi pada 450 citra test murni:
+  - Akurasi: **77.78%**, Macro F1: **0.7787**.
+  - BLB: F1 80.4%, Brown Spot: F1 72.9%, Leaf Blast: F1 72.7%, Normal: F1 80.9%, Tungro: F1 82.4%.
+  - Kalibrasi ambang: Ambang dioptimalkan pada **0.65** (akurasi in-scope yang dipertahankan mencapai **91.19%** dan laju penolakan out-of-scope 48.5%).
+  - Paritas TFLite: Selisih probabilitas Keras vs TFLite maksimum adalah **3.46e-06** (< 0.00001).
+
+### 3. Integrasi Flutter & Build APK Rilis
+- Menyalin model `paddy_mobilenetv3.tflite` (3.87 MB) dan `labels.txt` ke `padicare/assets/models/`.
+- Memperbarui `ClassifierService` dengan 5 kelas dan threshold 0.65.
+- Memperbarui `DiseaseInfo` dengan informasi agronomis lengkap 5 kelas.
+- Memperbarui `AboutScreen` dengan pernyataan batas kelas model yang jujur.
+- Menjalankan verifikasi:
+  - `flutter test --no-pub`: 15/15 lulus.
+  - `flutter analyze --no-pub`: 0 issues found.
+  - `flutter build apk --release`: Sukses menghasilkan APK rilis 71.1 MB di `padicare/build/app/outputs/flutter-apk/app-release.apk`.

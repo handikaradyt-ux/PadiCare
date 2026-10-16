@@ -16,8 +16,8 @@ void main() {
       expect(result.recoveryAction, 'Pilih Foto Ulang');
     });
 
-    test('Threshold constant is calibrated to 0.60', () {
-      expect(ClassifierService.uncertaintyThreshold, 0.60);
+    test('Threshold constant is calibrated to 0.65', () {
+      expect(ClassifierService.uncertaintyThreshold, 0.65);
       expect(ClassifierService.inputImageSize, 224);
     });
 
@@ -44,17 +44,27 @@ void main() {
     });
 
     test('Label ordering in models matches ML training class sequence', () {
-      // 0: bacterial_leaf_blight, 1: brown_spot, 2: normal
-      const expectedClasses = ['bacterial_leaf_blight', 'brown_spot', 'normal'];
+      // 0: bacterial_leaf_blight, 1: brown_spot, 2: leaf_blast, 3: normal, 4: tungro
+      const expectedClasses = [
+        'bacterial_leaf_blight',
+        'brown_spot',
+        'leaf_blast',
+        'normal',
+        'tungro',
+      ];
 
       expect(expectedClasses[0], 'bacterial_leaf_blight');
       expect(expectedClasses[1], 'brown_spot');
-      expect(expectedClasses[2], 'normal');
+      expect(expectedClasses[2], 'leaf_blast');
+      expect(expectedClasses[3], 'normal');
+      expect(expectedClasses[4], 'tungro');
 
       // Verify disease info models support all classes
       expect(DiseaseInfo.getById('bacterial_leaf_blight')?.name, contains('Hawar Daun Bakteri'));
       expect(DiseaseInfo.getById('brown_spot')?.name, contains('Bercak Coklat'));
+      expect(DiseaseInfo.getById('leaf_blast')?.name, contains('Blas Daun'));
       expect(DiseaseInfo.getById('normal')?.name, contains('Daun Tampak Sehat'));
+      expect(DiseaseInfo.getById('tungro')?.name, contains('Tungro'));
     });
   });
 

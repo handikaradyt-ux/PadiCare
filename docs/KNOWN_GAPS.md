@@ -17,16 +17,21 @@ Dokumen ini mencatat batasan teknis riil, keterbatasan model, dan item pengujian
 
 ---
 
-## 2. Keterbatasan Arsitektur Model AI (Closed-Set Classifier & Ambang 0.60)
+## 2. Keterbatasan Arsitektur Model AI (Closed-Set 5 Kelas & Ambang 0.65)
 
 - **Kondisi Aktual**:
-  - Model `paddy_mobilenetv3.tflite` adalah model klasifikasi tertutup (*closed-set classifier*) dengan lapisan output 3 kelas: `bacterial_leaf_blight`, `brown_spot`, dan `normal`.
-  - Evaluasi pada data uji murni (61 citra) mencapai akurasi **88.52%** (54/61 benar).
-  - **Keterbatasan Penting**: Evaluasi empiris pada 353 citra penyakit di luar cakupan (133 *Leaf Blast*, 107 *Leaf Scald*, dan 113 *Narrow Brown Spot*) menunjukkan bahwa model closed-set softmax cenderung memetakan lesi nekrotik daun tersebut ke kelas latih terdekat (mayoritas ke Brown Spot atau BLB) dengan skor confidence tinggi (> 85%–95%).
-  - **Kesimpulan Ambang**: Ambang ketidakyakinan (uncertainty threshold) **0.60** menyaring citra yang menghasilkan distribusi probabilitas datar, tetapi **BELUM DAPAT DIANDALKAN untuk menolak semua penyakit di luar tiga kelas atau foto bukan daun padi**.
+  - Model `paddy_mobilenetv3.tflite` (3,87 MB) adalah model klasifikasi 5 kelas daun: `bacterial_leaf_blight`, `brown_spot`, `leaf_blast`, `normal`, dan `tungro`.
+  - Evaluasi pada data uji murni (450 citra riil, 90 per kelas) mencapai akurasi **77.78%** dan Macro F1 **0.7787**.
+  - **Kalibrasi Ambang Ketidakyakinan (0.65)**:
+    - Ambang dinaikkan menjadi **0.65** berdasarkan evaluasi kalibrasi empiris.
+    - Pada skor ≥ 0.65, akurasi prediksi in-scope yang dipertahankan mencapai **91.19%**.
+  - **Keterbatasan Out-of-Scope (OOS)**:
+    - Pengujian pada 400 citra non-target (`dead_heart`, `hispa`, `leaf_scald`, `narrow_brown_spot`) menunjukkan laju penolakan 48.5% pada ambang 0.65.
+    - Penyakit dengan bentuk lesi menyerupai bercak cokelat (seperti *narrow brown spot* dan *leaf scald*) masih dapat menghasilkan skor di atas ambang jika pola bercak sangat mirip.
+  - **Klaim Produk**:
+    - Aplikasi secara jujur menyatakan hanya mendukung 5 kelas daun tersebut, BUKAN "semua penyakit padi".
 - **Tindak Lanjut**:
-  - Edukasi pengguna melalui teks antarmuka di `ResultScreen` dan `AboutScreen` bahwa hasil pemeriksaan adalah *dugaan awal berbasis pola visual*, bukan diagnosis agronomis mutlak.
-  - Pengembangan jangka panjang memerlukan arsitektur *open-set recognition*, penambahan kelas out-of-scope (*background/other*), atau model segmentasi visual.
+    - Edukasi pengguna melalui teks antarmuka di `ResultScreen` dan `AboutScreen` bahwa hasil pemeriksaan adalah *dugaan awal berbasis foto*, serta menyarankan pemeriksaan lanjutan oleh penyuluh (PPL) jika hasil belum meyakinkan.
 
 ---
 

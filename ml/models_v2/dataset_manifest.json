@@ -1,0 +1,44 @@
+{
+  "purpose": "experimental six-class pilot; not shipped in PadiCare",
+  "source": "Project-AgML rice leaf disease classification BD, CC BY 4.0",
+  "seed": 42,
+  "classes": [
+    "bacterial_leaf_blight",
+    "brown_spot",
+    "leaf_blast",
+    "leaf_scald",
+    "narrow_brown_spot",
+    "normal"
+  ],
+  "splits": {
+    "train": {
+      "bacterial_leaf_blight": 77,
+      "brown_spot": 127,
+      "leaf_blast": 93,
+      "leaf_scald": 74,
+      "narrow_brown_spot": 79,
+      "normal": 71
+    },
+    "val": {
+      "bacterial_leaf_blight": 17,
+      "brown_spot": 27,
+      "leaf_blast": 20,
+      "leaf_scald": 16,
+      "narrow_brown_spot": 17,
+      "normal": 15
+    },
+    "test": {
+      "bacterial_leaf_blight": 17,
+      "brown_spot": 28,
+      "leaf_blast": 20,
+      "leaf_scald": 17,
+      "narrow_brown_spot": 17,
+      "normal": 16
+    }
+  },
+  "notes": [
+    "Original three-class split assignments preserved.",
+    "Former out-of-scope images are now training/evaluation candidates, not unknown-class test data.",
+    "Synthetic test_images_synthetic images are excluded."
+  ]
+}

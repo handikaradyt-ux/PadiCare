@@ -7,7 +7,7 @@ import '../models/detection_result.dart';
 class ClassifierService {
   static const String modelAssetPath = 'assets/models/paddy_mobilenetv3.tflite';
   static const String labelsAssetPath = 'assets/models/labels.txt';
-  static const double uncertaintyThreshold = 0.60;
+  static const double uncertaintyThreshold = 0.65;
   static const int inputImageSize = 224;
 
   Interpreter? _interpreter;
@@ -97,7 +97,7 @@ class ClassifierService {
         ),
       );
 
-      // Siapkan output tensor [1, 3]
+      // Siapkan output tensor [1, N]
       final output = List.generate(1, (_) => List.filled(_labels.length, 0.0));
 
       // Jalankan inferensi dan ukur waktu proses
@@ -149,10 +149,30 @@ class ClassifierService {
                 'Dugaan lesi bercak oval kecokelatan dengan pusat pucat atau abu-abu pada permukaan daun padi.',
             inferenceTimeMs: inferenceTimeMs,
           );
+        case 'leaf_blast':
+          return DetectionResult.disease(
+            labelId: 'leaf_blast',
+            displayName: 'Blas Daun (Leaf Blast)',
+            confidence: maxScore,
+            imagePath: imagePath,
+            description:
+                'Dugaan lesi kumparan abu-abu keputihan dengan tepi coklat kemerahan khas patogen blas.',
+            inferenceTimeMs: inferenceTimeMs,
+          );
         case 'normal':
           return DetectionResult.healthy(
             confidence: maxScore,
             imagePath: imagePath,
+            inferenceTimeMs: inferenceTimeMs,
+          );
+        case 'tungro':
+          return DetectionResult.disease(
+            labelId: 'tungro',
+            displayName: 'Penyakit Tungro (Tungro)',
+            confidence: maxScore,
+            imagePath: imagePath,
+            description:
+                'Dugaan diskolorisasi daun kuning-jingga mulai dari ujung daun dan indikasi pertumbuhan kerdil.',
             inferenceTimeMs: inferenceTimeMs,
           );
         default:

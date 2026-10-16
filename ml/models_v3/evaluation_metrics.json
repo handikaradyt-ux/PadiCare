@@ -1,0 +1,165 @@
+{
+  "status": "candidate_5_class_evaluation",
+  "classes": [
+    "bacterial_leaf_blight",
+    "brown_spot",
+    "leaf_blast",
+    "normal",
+    "tungro"
+  ],
+  "test_samples": 450,
+  "accuracy": 0.7777777777777778,
+  "macro_f1": 0.7786900329700398,
+  "weighted_f1": 0.7786900329700398,
+  "confusion_matrix": [
+    [
+      76,
+      6,
+      3,
+      3,
+      2
+    ],
+    [
+      8,
+      70,
+      8,
+      1,
+      3
+    ],
+    [
+      9,
+      8,
+      64,
+      5,
+      4
+    ],
+    [
+      3,
+      10,
+      6,
+      70,
+      1
+    ],
+    [
+      3,
+      8,
+      5,
+      4,
+      70
+    ]
+  ],
+  "classification_report": {
+    "bacterial_leaf_blight": {
+      "precision": 0.7676767676767676,
+      "recall": 0.8444444444444444,
+      "f1-score": 0.8042328042328042,
+      "support": 90.0
+    },
+    "brown_spot": {
+      "precision": 0.6862745098039216,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.7291666666666666,
+      "support": 90.0
+    },
+    "leaf_blast": {
+      "precision": 0.7441860465116279,
+      "recall": 0.7111111111111111,
+      "f1-score": 0.7272727272727273,
+      "support": 90.0
+    },
+    "normal": {
+      "precision": 0.8433734939759037,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.8092485549132948,
+      "support": 90.0
+    },
+    "tungro": {
+      "precision": 0.875,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.8235294117647058,
+      "support": 90.0
+    },
+    "accuracy": 0.7777777777777778,
+    "macro avg": {
+      "precision": 0.7833021635936441,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.7786900329700398,
+      "support": 450.0
+    },
+    "weighted avg": {
+      "precision": 0.7833021635936441,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.7786900329700398,
+      "support": 450.0
+    }
+  },
+  "out_of_scope_evaluation": {
+    "dead_heart": {
+      "count": 100,
+      "mean_confidence": 0.5969811081886292,
+      "max_confidence": 0.9357220530509949,
+      "fraction_above_0_60": 0.45,
+      "fraction_above_0_70": 0.27,
+      "fraction_above_0_80": 0.09
+    },
+    "hispa": {
+      "count": 100,
+      "mean_confidence": 0.6262817978858948,
+      "max_confidence": 0.9886444807052612,
+      "fraction_above_0_60": 0.51,
+      "fraction_above_0_70": 0.37,
+      "fraction_above_0_80": 0.24
+    },
+    "leaf_scald": {
+      "count": 100,
+      "mean_confidence": 0.7329554557800293,
+      "max_confidence": 0.9995362758636475,
+      "fraction_above_0_60": 0.75,
+      "fraction_above_0_70": 0.57,
+      "fraction_above_0_80": 0.4
+    },
+    "narrow_brown_spot": {
+      "count": 100,
+      "mean_confidence": 0.7336970567703247,
+      "max_confidence": 0.9998779296875,
+      "fraction_above_0_60": 0.69,
+      "fraction_above_0_70": 0.53,
+      "fraction_above_0_80": 0.44
+    }
+  },
+  "threshold_calibration": {
+    "0.50": {
+      "in_scope_coverage": 0.8466666666666667,
+      "in_scope_accuracy_retained": 0.8582677165354331,
+      "oos_rejection_rate": 0.215
+    },
+    "0.60": {
+      "in_scope_coverage": 0.7688888888888888,
+      "in_scope_accuracy_retained": 0.8901734104046243,
+      "oos_rejection_rate": 0.4
+    },
+    "0.65": {
+      "in_scope_coverage": 0.7311111111111112,
+      "in_scope_accuracy_retained": 0.9118541033434651,
+      "oos_rejection_rate": 0.485
+    },
+    "0.70": {
+      "in_scope_coverage": 0.6866666666666666,
+      "in_scope_accuracy_retained": 0.9449838187702265,
+      "oos_rejection_rate": 0.565
+    },
+    "0.75": {
+      "in_scope_coverage": 0.6333333333333333,
+      "in_scope_accuracy_retained": 0.9614035087719298,
+      "oos_rejection_rate": 0.6325
+    },
+    "0.80": {
+      "in_scope_coverage": 0.5666666666666667,
+      "in_scope_accuracy_retained": 0.9725490196078431,
+      "oos_rejection_rate": 0.7075
+    }
+  },
+  "recommended_threshold": 0.65,
+  "keras_tflite_max_probability_delta": 3.4570693969726562e-06,
+  "tflite_size_bytes": 4059772
+}

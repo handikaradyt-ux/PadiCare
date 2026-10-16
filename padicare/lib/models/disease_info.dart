@@ -52,16 +52,35 @@ class DiseaseInfo {
         'Hindari penggunaan pupuk nitrogen (Urea) secara berlebihan pada awal serangan.',
         'Terapkan pengairan berselang (intermittent irrigation) dan hindari genangan tinggi berkelanjutan.',
         'Bersihkan gulma pematang sawah yang dapat menjadi inang alternatif bakteri.',
-        'Gunakan benih sehat dan varietas tahan pada musim tanam berikutnya sesuai anjuran PPL.',
+        'Gunakan benih sehat dan varietis tahan pada musim tanam berikutnya sesuai anjuran PPL.',
       ],
       agriculturalSource: 'Pedoman Diagnosis Penyakit Padi IRRI & Balitpa Kementan',
+    ),
+    DiseaseInfo(
+      id: 'leaf_blast',
+      name: 'Blas Daun (Leaf Blast)',
+      scientificName: 'Pyricularia oryzae / Magnaporthe oryzae',
+      summary:
+          'Penyakit jamur berbahaya pada padi yang menyerang daun pada fase vegetatif, dipicu oleh kelembapan tinggi, embun malam yang lama, serta pemupukan N tinggi.',
+      visualSymptoms: [
+        'Lesi khas berbentuk belah ketupat atau kumparan (spindle-shaped) dengan kedua ujung meruncing.',
+        'Bagian tengah bercak berwarna abu-abu keputihan dengan batas tepi coklat kemerahan atau coklat gelap.',
+        'Pada serangan parah, lesi saling menyatu menyebabkan daun tampak terbakar dan mengering.',
+      ],
+      followUpSteps: [
+        'Gunakan varietas tahan blas yang adaptif setempat (misal varietas Inpari spesifik anjuran).',
+        'Atur jarak tanam lebih renggang (seperti pola jajar legowo) untuk sirkulasi udara optimal.',
+        'Kurangi dosis pupuk nitrogen dan imbangi dengan pemupukan fosfat dan kalium yang cukup.',
+        'Konsultasikan aplikasi fungisida anjuran dengan Petugas Penyuluh Lapangan (PPL) jika gejala meluas.',
+      ],
+      agriculturalSource: 'Pedoman Teknis Pengendalian Blas Padi Balitpa Kementan RI & IRRI',
     ),
     DiseaseInfo(
       id: 'normal',
       name: 'Daun Tampak Sehat',
       scientificName: 'Oryza sativa (Sehat)',
       summary:
-          'Daun padi berada dalam kondisi visual normal tanpa gejala bercak nekrotik, hawar, atau luka khas patogen jamur/bakteri utama.',
+          'Daun padi berada dalam kondisi visual normal tanpa gejala bercak nekrotik, hawar, blas, atau luka khas patogen jamur/bakteri utama.',
       visualSymptoms: [
         'Warna hijau merata sesuai fase vegetatif atau generatif tanaman.',
         'Tepi dan permukaan daun utuh tanpa lesi kering atau tepi kuning terpotong.',
@@ -73,6 +92,25 @@ class DiseaseInfo {
         'Jaga kebersihan pematang sawah dan sirkulasi air sawah.',
       ],
       agriculturalSource: 'Buku Saku Budidaya Padi Berkelanjutan Kementan RI',
+    ),
+    DiseaseInfo(
+      id: 'tungro',
+      name: 'Penyakit Tungro',
+      scientificName: 'Rice Tungro Spherical & Bacilliform Virus',
+      summary:
+          'Penyakit virus penting pada tanaman padi yang ditularkan oleh vektor wereng daun hijau (Nephotettix virescens), menimbulkan daun kuning kejinggaan dan kekerdilan.',
+      visualSymptoms: [
+        'Perubahan warna daun menjadi kuning hingga jingga-oranye dimulai dari ujung daun muda.',
+        'Pertumbuhan tanaman kerdil (stunted) dengan jumlah anakan berkurang secara signifikan.',
+        'Permukaan helai daun kadang tampak berbintik klorotik atau sedikit terpuntir.',
+      ],
+      followUpSteps: [
+        'Terapkan tanam serempak dalam satu hamparan untuk memutus siklus hidup vektor dan virus.',
+        'Kendalikan populasi wereng hijau sejak dini sesuai panduan ambang kendali dari penyuluh.',
+        'Cabut dan musnahkan (eradikasi selektif) tanaman yang terinfeksi berat untuk mencegah penyebaran.',
+        'Gunakan varietas tahan tungro yang direkomendasikan dinas pertanian setempat.',
+      ],
+      agriculturalSource: 'Buku Pedoman Pengendalian Tungro Balitpa Kementan & IRRI',
     ),
   ];
 

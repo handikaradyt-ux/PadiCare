@@ -69,7 +69,7 @@ class AboutScreen extends StatelessWidget {
               title: 'Batasan Penting Model AI',
               iconColor: AgroColors.warning,
               content:
-                  'Model AI hanya dilatih untuk mengenali kelas tertentu (Bercak Coklat, Hawar Daun Bakteri, dan Daun Sehat). Foto di luar kelas latih atau foto bukan daun padi dapat menghasilkan prediksi keliru. Hasil analisis merupakan dugaan awal mandiri, bukan diagnosis agronomis mutlak.',
+                  'Model AI dilatih khusus untuk mengenali 5 kondisi daun padi: Hawar Daun Bakteri (Kresek), Bercak Cokelat, Blas Daun, Penyakit Tungro, dan Daun Tampak Sehat. Model tidak mendeteksi semua penyakit padi; foto hama/malai/batang atau di luar 5 kelas ini disaring oleh batas keyakinan (≥65%) sebagai hasil belum meyakinkan. Hasil analisis merupakan pemeriksaan awal visual mandiri, bukan diagnosis agronomis mutlak.',
             ),
             const SizedBox(height: 14),
             _buildSectionCard(

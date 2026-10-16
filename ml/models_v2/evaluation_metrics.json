@@ -1,0 +1,117 @@
+{
+  "status": "experimental pilot; not deployed",
+  "classes": [
+    "bacterial_leaf_blight",
+    "brown_spot",
+    "leaf_blast",
+    "leaf_scald",
+    "narrow_brown_spot",
+    "normal"
+  ],
+  "test_samples": 115,
+  "accuracy": 0.5304347826086957,
+  "confusion_matrix": [
+    [
+      10,
+      0,
+      1,
+      0,
+      6,
+      0
+    ],
+    [
+      4,
+      12,
+      7,
+      0,
+      5,
+      0
+    ],
+    [
+      3,
+      6,
+      7,
+      0,
+      4,
+      0
+    ],
+    [
+      2,
+      2,
+      3,
+      5,
+      5,
+      0
+    ],
+    [
+      1,
+      1,
+      0,
+      0,
+      15,
+      0
+    ],
+    [
+      4,
+      0,
+      0,
+      0,
+      0,
+      12
+    ]
+  ],
+  "classification_report": {
+    "bacterial_leaf_blight": {
+      "precision": 0.4166666666666667,
+      "recall": 0.5882352941176471,
+      "f1-score": 0.4878048780487805,
+      "support": 17.0
+    },
+    "brown_spot": {
+      "precision": 0.5714285714285714,
+      "recall": 0.42857142857142855,
+      "f1-score": 0.4897959183673469,
+      "support": 28.0
+    },
+    "leaf_blast": {
+      "precision": 0.3888888888888889,
+      "recall": 0.35,
+      "f1-score": 0.3684210526315789,
+      "support": 20.0
+    },
+    "leaf_scald": {
+      "precision": 1.0,
+      "recall": 0.29411764705882354,
+      "f1-score": 0.45454545454545453,
+      "support": 17.0
+    },
+    "narrow_brown_spot": {
+      "precision": 0.42857142857142855,
+      "recall": 0.8823529411764706,
+      "f1-score": 0.5769230769230769,
+      "support": 17.0
+    },
+    "normal": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1-score": 0.8571428571428571,
+      "support": 16.0
+    },
+    "accuracy": 0.5304347826086957,
+    "macro avg": {
+      "precision": 0.6342592592592592,
+      "recall": 0.5488795518207282,
+      "f1-score": 0.5391055396098492,
+      "support": 115.0
+    },
+    "weighted avg": {
+      "precision": 0.6186680469289164,
+      "recall": 0.5304347826086957,
+      "f1-score": 0.5271707864608461,
+      "support": 115.0
+    }
+  },
+  "unknown_class_evaluation": "pending independent data",
+  "note": "The previous 0.60 threshold is not calibrated for this model.",
+  "keras_tflite_max_probability_delta": 1.3709068298339844e-06
+}

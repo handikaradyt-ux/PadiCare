@@ -1,3 +1,5 @@
 bacterial_leaf_blight
 brown_spot
+leaf_blast
 normal
+tungro

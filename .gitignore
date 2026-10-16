@@ -19,6 +19,8 @@
 env/
 dataset_sources/
 ml/data/
+ml/data_v2/
+ml/data_v3/
 ml/padicare/
 
 # Test screenshots
