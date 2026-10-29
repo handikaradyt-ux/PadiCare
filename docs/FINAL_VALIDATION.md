@@ -1,5 +1,7 @@
 # Dokumen Validasi Akhir Proyek PadiCare
 
+> **Arsip versi tiga kelas, 13 Oktober 2026.** Angka, ukuran model, ambang, dan status APK dalam dokumen ini menggambarkan versi lama. Untuk model lima kelas yang kini terpasang, gunakan `docs/PROGRESS.md` dan `docs/MODEL_SPECIFICATION.md`. Pengujian kamera HP fisik dan beberapa calon pengguna masih perlu dicatat sebelum aplikasi dinyatakan final.
+
 Dokumen ini memuat matriks pemenuhan kebutuhan PRD, status implementasi dan verifikasi teknis, batas arsitektur model machine learning, serta protokol pengujian manual pada smartphone Android fisik.
 
 ---

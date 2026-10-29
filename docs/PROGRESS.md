@@ -1,6 +1,6 @@
 # Catatan Kemajuan Proyek PadiCare
 
-Dokumen ini mencatat kemajuan per tahap, status verifikasi nyata, dan hasil pengujian terkini per **16 Oktober 2026**.
+Dokumen ini mencatat kemajuan proyek dan bukti pengujian. Ringkasan A–F di bawah merekam status **16 Oktober 2026**; pembaruan **29 Oktober 2026** ada pada bagian akhir.
 
 ## Ringkasan Status Tahap
 
@@ -50,3 +50,15 @@ Dokumen ini mencatat kemajuan per tahap, status verifikasi nyata, dan hasil peng
   - `flutter test --no-pub`: 15/15 lulus.
   - `flutter analyze --no-pub`: 0 issues found.
   - `flutter build apk --release`: Sukses menghasilkan APK rilis 71.1 MB di `padicare/build/app/outputs/flutter-apk/app-release.apk`.
+
+---
+
+## Pembaruan Tahap 4 dan Persiapan Tahap 5 — 29 Oktober 2026
+
+- `flutter test --no-pub`: **15/15 tes unit dan widget lulus**.
+- `flutter analyze --no-pub`: **No issues found**.
+- Tes integrasi Android lima kelas belum dijalankan: `emulator-5554` terdeteksi tetapi belum terotorisasi, dan HP fisik belum dipakai untuk pengujian.
+- APK yang dibuat 16 Oktober 2026 berukuran **74.528.266 byte**. SHA-256 APK: `bb21e501dd0189887e505192508eab9907670c84bcdca33717774b6d83dcdf0a`. Model TFLite di dalam APK mempunyai SHA-256 yang sama dengan aset proyek, dan `labels.txt` di dalam APK memuat tepat lima kelas.
+- Tes integrasi yang masih merujuk tiga kelas dan ambang 0,60 telah diselaraskan dengan model lima kelas dan ambang 0,65. README dan spesifikasi model juga diperbarui; `FINAL_VALIDATION.md` diberi label arsip versi tiga kelas.
+- Pengujian kamera langsung di HP Android fisik dan pengujian beberapa calon pengguna **belum dilakukan**. APK saat ini berstatus **kandidat pengujian**, bukan aplikasi final. Video demonstrasi akan dibuat sendiri oleh kelompok.
+- Skenario uji, tabel hasil yang sudah memiliki bukti, kolom hasil uji pengguna yang menunggu pengisian, daftar temuan, dan gerbang finalisasi tersedia dalam `Laporan_Tahap_4_dan_Persiapan_Tahap_5_PadiCare.docx`.
